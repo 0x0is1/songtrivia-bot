@@ -1,3 +1,4 @@
+# https://discord.com/api/oauth2/authorize?client_id=845940942325678101&permissions=36760896&scope=bot
 import asyncio, vigenere
 from discord.ext import commands
 import discord, os, trivialib, random
@@ -23,9 +24,9 @@ def score_embed(server_id):
     global container
     embed=discord.Embed(title='Song Trivia', color=0x03f8fc)
     players_score=container[server_id]['players']
-    players_score=dict(sorted(players_score.items(), key=lambda item: item[1]))
+    players_score=dict(reversed(sorted(players_score.items(), key=lambda item: item[1])))
     string=''
-    for i in reversed(players_score):
+    for i in players_score:
         string+='<@{player_id}>  -  {score}\n'.format(player_id=i, score=str(players_score[i]))
     embed.add_field(name='Scoreboard', value=string, inline=False)
     return embed
@@ -66,7 +67,6 @@ async def on_reaction_add(reaction, user):
 
         # checking for correct answer
         encrypted_session_id=str(msg.embeds[0].footer.text).split('sessionid:')[1]
-        print(encrypted_session_id)
         ## decrypting answer
         correct_answer=vigenere.decrypt(encrypted_session_id, key)
         reacted_answer=num_emojis.index(str(reaction))-1
