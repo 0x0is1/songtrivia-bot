@@ -142,6 +142,7 @@ async def game(ctx, url):
     vc.stop()
     await ctx.send('**Game Over**')
 
+@bot.command()
 async def stop(ctx):
     global container
     server_id = ctx.message.guild.id
