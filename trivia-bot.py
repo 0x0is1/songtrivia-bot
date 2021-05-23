@@ -91,7 +91,8 @@ async def game(ctx, url):
     container[str(server_id)]={
         'players':{},
         'has_reacted':[],
-        'bonus': 10
+        'bonus': 10,
+        'stop': False
     }
 
     # resetting container
@@ -102,7 +103,7 @@ async def game(ctx, url):
     trackinfo=trivialib.spotify_info_privider(trackid)
     random.shuffle(trackinfo)
     for i in range(len(trackinfo)):
-        if vc.is_connected() and not vc.is_playing():
+        if vc.is_connected() and not vc.is_playing() and not container[str(server_id)]['stop']:
             try:os.remove('{}.mp3'.format(str(server_id)))
             except Exception:pass
             container[str(server_id)]['bonus']=10
@@ -138,7 +139,13 @@ async def game(ctx, url):
                 await n.delete()
             except AttributeError:ctx.send('Please connect to a voice channel before interacting.');continue
             except NotADirectoryError: pass
+    vc.stop()
     await ctx.send('**Game Over**')
 
+async def stop(ctx):
+    global container
+    server_id = ctx.message.guild.id
+    container[str(server_id)]['stop']=True
+    await ctx.add_reaction('✅')
 token=os.environ.get('EXPERIMENTAL_BOT_TOKEN')
 bot.run(token)
