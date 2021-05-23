@@ -137,6 +137,7 @@ async def game(ctx, url):
                 await asyncio.sleep(5)
                 await n.delete()
             except AttributeError:ctx.send('Please connect to a voice channel before interacting.');continue
+            except NotADirectoryError: pass
     await ctx.send('**Game Over**')
 
 token=os.environ.get('EXPERIMENTAL_BOT_TOKEN')
