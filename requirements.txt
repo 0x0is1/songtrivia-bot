@@ -1,0 +1,5 @@
+vigenere
+discord
+asyncio
+spotipy
+youtube_dl
