@@ -147,6 +147,6 @@ async def stop(ctx):
     global container
     server_id = ctx.message.guild.id
     container[str(server_id)]['stop']=True
-    await ctx.add_reaction('✅')
+    await ctx.send('✅Bot will be stopped after this round. Thanks for playing.')
 token=os.environ.get('EXPERIMENTAL_BOT_TOKEN')
 bot.run(token)
