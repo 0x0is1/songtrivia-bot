@@ -3,3 +3,4 @@ discord
 asyncio
 spotipy
 youtube_dl
+PyNaCl
