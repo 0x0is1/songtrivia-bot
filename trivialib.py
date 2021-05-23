@@ -30,6 +30,7 @@ def track_downloader(song:list, channel_id:int):
                 'outtmpl': '{song_name}.mp3'.format(song_name=str(channel_id)),
                 'default_search': 'ytsearch',
                 'noplaylist': True,
+                'no-cache-dir': True,
                 'postprocessor_args': [
                     '-metadata', 'title=' + song.get('name'),
                     '-metadata', 'artist=' + song.get('artist'),
